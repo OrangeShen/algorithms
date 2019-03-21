@@ -12,20 +12,25 @@ ex) limit([1,2,3,4,5], None, 3) = [1,2,3]
 Complexity = O(n)
 """
 
+
 # tl:dr -- array slicing by value
-def limit(arr, min_lim = None, max_lim = None):
+def limit(arr, min_lim=None, max_lim=None):
     result = []
-    if min_lim == None:
+    if min_lim is None:
         for i in arr:
             if i <= max_lim:
                 result.append(i)
-    elif max_lim == None:
+    elif max_lim is None:
         for i in arr:
             if i >= min_lim:
                 result.append(i)
     else:
         for i in arr:
-            if i >= min_lim and i <= max_lim:
+            if min_lim < i <= max_lim:
                 result.append(i)
 
     return result
+
+
+if __name__ == '__main__':
+    print(limit([1, 2, 3, 4, 5], None, 3))

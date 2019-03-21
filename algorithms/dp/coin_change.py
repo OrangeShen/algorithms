@@ -12,6 +12,7 @@ For N = 10 and S = [2, 5, 3, 6], there are five solutions:
 So the output should be 5.
 """
 
+
 def count(s, n):
     # We need n+1 rows as the table is consturcted in bottom up
     # manner using the base case 0 value case (n = 0)

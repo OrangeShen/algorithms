@@ -1,8 +1,8 @@
 def bucket_sort(arr):
-    ''' Bucket Sort
+    """ Bucket Sort
         Complexity: O(n^2)
         The complexity is dominated by nextSort
-    '''
+    """
     # The number of buckets and make buckets
     num_buckets = len(arr)
     buckets = [[] for bucket in range(num_buckets)]
@@ -15,6 +15,7 @@ def bucket_sort(arr):
     for i in range(num_buckets):
         sorted_list.extend(next_sort(buckets[i]))
     return sorted_list
+
 
 def next_sort(arr):
     # We will use insertion sort here.

@@ -18,3 +18,8 @@ def josephus(int_list, skip):
         idx = (skip + idx) % len_list   # hash index to every 3rd
         yield int_list.pop(idx)
         len_list -= 1
+
+
+if __name__ == '__main__':
+    for i in josephus(list('123456789'), 3):
+        print(i, end='')

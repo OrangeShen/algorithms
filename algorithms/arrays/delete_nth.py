@@ -1,5 +1,5 @@
 """
-Given a list lst and a number N, create a new list
+Given a list `lst` and a number `N`, create a new list
 that contains each number of the list at most N times without reordering.
 
 For example if N = 2, and the input is [1,2,3,1,2,1,2,3], you take [1,2,3,1,2], 
