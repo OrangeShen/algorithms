@@ -10,7 +10,9 @@ path = "/a/./b/../../c/", => "/c"
 * Another corner case is the path might contain multiple slashes '/' together, such as "/home//foo/".
     In this case, you should ignore redundant slashes and return "/home/foo".
 """
-def simplify_path(path):
+
+
+def simplify_path(path: str) -> str:
     """
     :type path: str
     :rtype: str
@@ -21,7 +23,7 @@ def simplify_path(path):
     for tok in paths:
         if tok == '..':
             if stack:
-                stack.pop()
+                stack.pop()  # return to parent dir
         elif tok not in skip:
             stack.append(tok)
     return '/' + '/'.join(stack)

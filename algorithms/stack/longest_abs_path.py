@@ -1,65 +1,61 @@
-# def lengthLongestPath(input):
-    # maxlen = 0
-    # pathlen = {0: 0}
-    # for line in input.splitlines():
-        # print("---------------")
-        # print("line:", line)
-        # name = line.strip('\t')
-        # print("name:", name)
-        # depth = len(line) - len(name)
-        # print("depth:", depth)
-        # if '.' in name:
-            # maxlen = max(maxlen, pathlen[depth] + len(name))
-        # else:
-            # pathlen[depth + 1] = pathlen[depth] + len(name) + 1
-        # print("maxlen:", maxlen)
-    # return maxlen
+"""
+Suppose we abstract our file system by a string in the following manner:
+The string "dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext" represents:
 
-# def lengthLongestPath(input):
-    # paths = input.split("\n")
-    # level = [0] * 10
-    # maxLength = 0
-    # for path in paths:
-        # print("-------------")
-        # levelIdx = path.rfind("\t")
-        # print("Path: ", path)
-        # print("path.rfind(\\t)", path.rfind("\t"))
-        # print("levelIdx: ", levelIdx)
-        # print("level: ", level)
-        # level[levelIdx + 1] = level[levelIdx] + len(path) - levelIdx + 1
-        # print("level: ", level)
-        # if "." in path:
-            # maxLength = max(maxLength, level[levelIdx+1] - 1)
-            # print("maxlen: ", maxLength)
-    # return maxLength
+dir
+    subdir1
+    subdir2
+        file.ext
 
-def length_longest_path(input):
-    """
-    :type input: str
-    :rtype: int
-    """
-    curr_len, max_len = 0, 0    # running length and max length
-    stack = []    # keep track of the name length
-    for s in input.split('\n'):
-        print("---------")
-        print("<path>:", s)
-        depth = s.count('\t')    # the depth of current dir or file
-        print("depth: ", depth)
-        print("stack: ", stack)
-        print("curlen: ", curr_len)
-        while len(stack) > depth:    # go back to the correct depth
-            curr_len -= stack.pop()
-        stack.append(len(s.strip('\t'))+1)   # 1 is the length of '/'
-        curr_len += stack[-1]    # increase current length
-        print("stack: ", stack)
-        print("curlen: ", curr_len)
-        if '.' in s:    # update maxlen only when it is a file
-            max_len = max(max_len, curr_len-1)    # -1 is to minus one '/'
+The directory dir contains an empty sub-directory subdir1 and
+a sub-directory subdir2 containing a file file.ext.
+
+The string "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\
+            tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext" represents:
+
+dir
+    subdir1
+        file1.ext
+        subsubdir1
+    subdir2
+        subsubdir2
+            file2.ext
+
+The directory dir contains two sub-directories subdir1 and subdir2.
+subdir1 contains a file file1.ext and an empty second-level sub-directory subsubdir1.
+subdir2 contains a second-level sub-directory subsubdir2 containing a file file2.ext.
+
+We are interested in finding the longest (number of characters) absolute path
+to a file within our file system. For example, in the second example above,
+the longest absolute path is "dir/subdir2/subsubdir2/file2.ext",
+and its length is 32 (not including the double quotes).
+
+Given a string representing the file system in the above format,
+return the length of the longest absolute path to file in the abstracted file system.
+If there is no file in the system, return 0.
+
+Note:
+The name of a file contains at least a . and an extension.
+The name of a directory or sub-directory will not contain a ..
+Time complexity required: O(n) where n is the size of the input string.
+
+Notice that a/aa/aaa/file1.txt is not the longest file path,
+if there is another path aaaaaaaaaaaaaaaaaaaaa/sth.png.
+"""
+
+
+def length_longest_path(input_path: str) -> int:
+    max_len = 0
+    path_len = {0: 0}
+    for line in input_path.splitlines():
+        name = line.lstrip('\t')
+        depth = len(line) - len(name)
+        if '.' in name:  # name with a . means it's a file
+            max_len = max(max_len, path_len[depth] + len(name))
+        else:
+            path_len[depth + 1] = path_len[depth] + len(name) + 1  # plus one because of the /
     return max_len
 
-st= "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdirectory1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext"
-st2 = "a\n\tb1\n\t\tf1.txt\n\taaaaa\n\t\tf2.txt"
-print("path:", st2)
 
-print("answer:", length_longest_path(st2))
-
+if __name__ == '__main__':
+    print(length_longest_path('dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext'))

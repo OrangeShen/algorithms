@@ -1,5 +1,5 @@
 """
-Given a stack, stutter takes a stack as a parameter and  replaces every value
+Given a stack, stutter takes a stack as a parameter and replaces every value
 in the stack with two occurrences of that value.
 
 For example, suppose the stack stores these values:
@@ -13,6 +13,7 @@ second_stutter: it uses a single queue as auxiliary storage
 """
 import collections
 
+
 def first_stutter(stack):
     storage_stack = []
     for i in range(len(stack)):
@@ -23,6 +24,7 @@ def first_stutter(stack):
         stack.append(val)
 
     return stack
+
 
 def second_stutter(stack):
     q = collections.deque()

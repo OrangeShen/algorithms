@@ -14,6 +14,8 @@ size() returns the number of items on the stack.
    It needs no parameters and returns an integer.
 """
 from abc import ABCMeta, abstractmethod
+
+
 class AbstractStack(metaclass=ABCMeta):
     """Abstract Class for Stacks."""
     def __init__(self):

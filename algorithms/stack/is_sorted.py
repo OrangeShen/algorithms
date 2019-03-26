@@ -9,13 +9,15 @@ The function should return false
 bottom [1, 2, 3, 4, 5, 6] top
 The function should return true
 """
+
+
 def is_sorted(stack):
     storage_stack = []
     for i in range(len(stack)):
-        if len(stack) == 0:
+        if len(stack) == 0:  # break if there is no element in the stack
             break
         first_val = stack.pop()
-        if len(stack) == 0:
+        if len(stack) == 0:  # break if there is only one element in the stack
             break
         second_val = stack.pop()
         if first_val < second_val:
